@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { icons, images } from "@/constants";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
+import { Link } from "expo-router";
+import OAuth from "@/components/OAuth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -20,14 +22,14 @@ const SignUp = () => {
         <View className="relative">
           <Image
             source={images.signUpCar}
-            resizeMode="contain"
-            className="w-full h-[250px]"
+            resizeMode="cover"
+            className="w-full h-[230px]"
           />
           <Text className="text-2xl font-JakartaSemiBold font-semibold absolute bottom-3 left-5">
             Create Your Account
           </Text>
         </View>
-        <View className="p-4">
+        <View className="px-4">
           <InputField
             label="Name"
             icon={icons.person}
@@ -56,6 +58,13 @@ const SignUp = () => {
             onPress={onSignUpPress}
             classNames="mt-8"
           />
+          <OAuth />
+          <View className="flex-row space-x-2 justify-center mt-6">
+            <Text>Already have an account?</Text>
+            <Link href={"/(auth)/sign-in"} className="text-primary-500">
+              Sign In
+            </Link>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

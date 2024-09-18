@@ -14,7 +14,7 @@ const getBgVariant = (variant: string) => {
       return "bg-green-500";
 
     case "outline":
-      return "bg-transparent border-neutral-300";
+      return "bg-transparent border border-neutral-500";
 
     default:
       return "bg-[#0286ff]";
@@ -54,7 +54,7 @@ const CustomButton = ({
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.6}
-      className={`w-full rounded-2xl py-4 flex justify-center items-center shadow-md ${classNames} ${getBgVariant(
+      className={`w-full rounded-2xl py-3 flex flex-row space-x-3 justify-center items-center shadow-md ${classNames} ${getBgVariant(
         bgVariant
       )}`}
     >

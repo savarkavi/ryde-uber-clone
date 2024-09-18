@@ -35,12 +35,12 @@ const InputField = ({
             {icon && (
               <Image
                 source={icon}
-                className="w-6 h-6 ml-2"
+                className="w-5 h-5 ml-2"
                 resizeMode="contain"
               />
             )}
             <TextInput
-              className={`${inputStyle} flex-1 p-3`}
+              className={`${inputStyle} flex-1 p-2`}
               placeholder={placeholder}
               value={value}
               onChangeText={onChangeText}
