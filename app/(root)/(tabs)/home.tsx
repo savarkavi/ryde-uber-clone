@@ -7,11 +7,14 @@ import {
   View,
 } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
+import * as Location from "expo-location";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import GoogleTextInput from "@/components/GoogleTextInput";
 import Map from "@/components/Map";
+import { useLocationStore } from "@/store";
+import { useEffect, useState } from "react";
 
 const ridesData = [
   {
@@ -122,11 +125,40 @@ const ridesData = [
 
 const loading = true;
 
-const handleSignOut = () => {};
-const handleDestinationPress = () => {};
-
 const Home = () => {
   const { user } = useUser();
+  const { setUserLocation, setDestinationLocation, userAddress } =
+    useLocationStore();
+  const [hasPermission, setHasPermission] = useState(false);
+
+  useEffect(() => {
+    const requestLocation = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        setHasPermission(false);
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+
+      const address = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        address: `${address[0].formattedAddress}`,
+      });
+    };
+
+    requestLocation();
+  }, [setUserLocation]);
+
+  const handleSignOut = () => {};
+  const handleDestinationPress = () => {};
 
   return (
     <SafeAreaView className="bg-general-500 h-full">

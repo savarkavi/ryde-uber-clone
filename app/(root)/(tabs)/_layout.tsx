@@ -28,7 +28,7 @@ const Layout = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "#333333",
-          marginBottom: 20,
+          marginBottom: 10,
           height: 70,
           marginHorizontal: 20,
           borderRadius: 50,
