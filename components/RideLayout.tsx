@@ -7,7 +7,13 @@ import { router } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 
-const RideLayout = ({ children }: { children: React.ReactNode }) => {
+const RideLayout = ({
+  children,
+  snapPoints,
+}: {
+  children: React.ReactNode;
+  snapPoints?: string[];
+}) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   return (
@@ -26,7 +32,11 @@ const RideLayout = ({ children }: { children: React.ReactNode }) => {
           </View>
         </TouchableOpacity>
         <Map />
-        <BottomSheet ref={bottomSheetRef} snapPoints={["45%", "80%"]} index={0}>
+        <BottomSheet
+          ref={bottomSheetRef}
+          snapPoints={snapPoints ? snapPoints : ["45%", "80%"]}
+          index={0}
+        >
           <BottomSheetView>{children}</BottomSheetView>
         </BottomSheet>
       </View>

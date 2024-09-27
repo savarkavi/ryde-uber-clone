@@ -1,6 +1,7 @@
 import { icons } from "@/constants";
 import { calculateRegion, generateMarkersFromData } from "@/lib/map";
 import { useDriverStore, useLocationStore } from "@/store";
+import { useEffect } from "react";
 import { ActivityIndicator, View } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 
@@ -59,7 +60,11 @@ const Map = () => {
     destinationLongitude,
   } = useLocationStore();
 
-  const { selectedDriver } = useDriverStore();
+  const { selectedDriver, setDrivers } = useDriverStore();
+
+  useEffect(() => {
+    setDrivers(drivers);
+  }, [setDrivers]);
 
   if (!userLatitude || !userLongitude)
     return (
