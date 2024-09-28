@@ -87,7 +87,13 @@ const BookRide = () => {
             </View>
           </View>
         </View>
-        <PaymentButton />
+        <PaymentButton
+          username={user?.firstName!}
+          email={user?.emailAddresses[0].emailAddress!}
+          amount={driverDetails.price!}
+          driverId={driverDetails.id!}
+          rideTime={driverDetails.time!}
+        />
       </RideLayout>
     </StripeProvider>
   );
