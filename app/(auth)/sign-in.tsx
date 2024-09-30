@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons, images } from "@/constants";
@@ -34,9 +34,11 @@ const SignIn = () => {
         router.replace("/(root)/(tabs)/home");
       } else {
         console.error(JSON.stringify(signInAttempt, null, 2));
+        Alert.alert("Error", "Invalid email or password");
       }
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
+      Alert.alert("Error", "Invalid email or password");
     }
   }, [isLoaded, formData.email, formData.password, router, setActive, signIn]);
 

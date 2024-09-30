@@ -7,7 +7,6 @@ import { formatTime } from "@/lib/utils";
 import { useDriverStore, useLocationStore } from "@/store";
 import PaymentButton from "@/components/PaymentButton";
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { useEffect, useState } from "react";
 
 const BookRide = () => {
   const { user } = useUser();
@@ -15,7 +14,7 @@ const BookRide = () => {
   const { drivers, selectedDriver } = useDriverStore();
 
   const driverDetails = drivers?.filter(
-    (driver) => +driver.id === selectedDriver
+    (driver) => driver.driver_id === selectedDriver
   )[0];
 
   return (
@@ -24,7 +23,7 @@ const BookRide = () => {
       merchantIdentifier="merchant.identifier"
       urlScheme="your-url-scheme"
     >
-      <RideLayout snapPoints={["65%", "85%"]}>
+      <RideLayout snapPoints={["35%", "85%"]}>
         <View className="p-3">
           <View className="flex flex-col w-full items-center justify-center mt-6">
             <Image
@@ -61,7 +60,7 @@ const BookRide = () => {
             <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
               <Text className="font-JakartaRegular">Pickup Time</Text>
               <Text className="font-JakartaRegular">
-                {formatTime(driverDetails?.time!)}
+                {formatTime(Math.trunc(driverDetails?.time!))}
               </Text>
             </View>
 
@@ -76,7 +75,9 @@ const BookRide = () => {
           <View className="flex flex-col w-full items-start justify-center mt-5">
             <View className="flex flex-row items-center justify-start mt-3 border-t border-b border-general-700 w-full p-3">
               <Image source={icons.to} className="w-6 h-6" />
-              <Text className="font-JakartaRegular ml-2">{userAddress}</Text>
+              <Text className="font-JakartaRegular ml-2">
+                {JSON.parse(userAddress!).formattedAddress}
+              </Text>
             </View>
 
             <View className="flex flex-row items-center justify-start border-b border-general-700 w-full p-3">
@@ -91,7 +92,7 @@ const BookRide = () => {
           username={user?.firstName!}
           email={user?.emailAddresses[0].emailAddress!}
           amount={driverDetails.price!}
-          driverId={driverDetails.id!}
+          driverId={driverDetails.driver_id!}
           rideTime={driverDetails.time!}
         />
       </RideLayout>

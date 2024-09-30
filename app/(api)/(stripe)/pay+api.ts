@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     const paymentMethod = await stripe.paymentMethods.attach(
       payment_method_id,
-      customer_id
+      { customer: customer_id }
     );
     const result = await stripe.paymentIntents.confirm(payment_intent_id, {
       payment_method: paymentMethod.id,

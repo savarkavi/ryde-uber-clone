@@ -4,9 +4,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { name, email, amount } = body;
+  const { name, email, amount, userAddress } = body;
 
-  if (!name || !email || !amount) {
+  console.log(userAddress);
+
+  if (!name || !email || !amount || !userAddress) {
     return new Response(
       JSON.stringify({ error: "Enter a valid field", status: 400 })
     );
@@ -19,7 +21,10 @@ export async function POST(request: Request) {
   if (existingCustomer.data.length > 0) {
     customer = existingCustomer.data[0];
   } else {
-    const newCustomer = await stripe.customers.create({ name, email });
+    const newCustomer = await stripe.customers.create({
+      name,
+      email,
+    });
     customer = newCustomer;
   }
 
@@ -31,16 +36,23 @@ export async function POST(request: Request) {
     amount: parseInt(amount) * 100,
     currency: "usd",
     customer: customer.id,
+    description: "Test payments for uber-clone mobile app",
+    shipping: {
+      name,
+      address: userAddress,
+    },
     automatic_payment_methods: {
       enabled: true,
       allow_redirects: "never",
     },
   });
 
+  console.log({ paymentIntent });
+
   return new Response(
     JSON.stringify({
-      paymentIntent: paymentIntent.client_secret,
-      ephemeralKey: ephemeralKey.secret,
+      paymentIntent: paymentIntent,
+      ephemeralKey: ephemeralKey,
       customer: customer.id,
     })
   );

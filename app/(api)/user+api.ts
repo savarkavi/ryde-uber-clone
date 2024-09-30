@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Error inserting user:", error);
-      return Response.json({ error: "Failed to create user" }, { status: 500 });
+      return Response.json({ error: "Failed to create user", status: 500 });
     }
 
     return Response.json(
