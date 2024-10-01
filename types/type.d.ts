@@ -1,3 +1,4 @@
+import { LocationGeocodedAddress } from "expo-location";
 import { TextInputProps, TouchableOpacityProps } from "react-native";
 
 declare interface Driver {
@@ -101,6 +102,7 @@ declare interface LocationStore {
   userLatitude: number | null;
   userLongitude: number | null;
   userAddress: string | null;
+  longUserAddress: LocationGeocodedAddress | null;
   destinationLatitude: number | null;
   destinationLongitude: number | null;
   destinationAddress: string | null;
@@ -113,6 +115,7 @@ declare interface LocationStore {
     longitude: number;
     address: string;
   }) => void;
+  setLongUserAddress: (address: LocationGeocodedAddress) => void;
   setDestinationLocation: ({
     latitude,
     longitude,

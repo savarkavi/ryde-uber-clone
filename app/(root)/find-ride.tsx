@@ -22,7 +22,10 @@ const FindRide = () => {
           <Text className="font-JakartaSemiBold">From</Text>
           <GoogleTextInput
             icon={icons.target}
-            handlePress={(location) => setUserLocation(location)}
+            handlePress={(location) => {
+              console.log(location);
+              setUserLocation(location);
+            }}
             containerStyle="my-4"
             initialLocation={userAddress!}
           />

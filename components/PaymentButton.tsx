@@ -23,6 +23,7 @@ const PaymentButton = ({
     userAddress,
     userLatitude,
     userLongitude,
+    longUserAddress,
     destinationAddress,
     destinationLatitude,
     destinationLongitude,
@@ -49,7 +50,8 @@ const PaymentButton = ({
                 name: username || email.split("@")[0],
                 email,
                 amount,
-                userAddress: JSON.parse(userAddress!),
+                userAddress: userAddress,
+                longUserAddress,
                 paymentMethodId: paymentMethod.id,
               }),
             }
@@ -144,7 +146,7 @@ const PaymentButton = ({
               setSuccess(false);
               router.push("/(root)/(tabs)/home");
             }}
-            className="mt-5"
+            classNames="mt-5"
           />
         </View>
       </ReactNativeModal>

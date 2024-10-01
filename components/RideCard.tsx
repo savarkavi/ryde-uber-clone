@@ -20,24 +20,24 @@ const RideCard = ({
   return (
     <View className="flex flex-row items-center justify-center bg-white rounded-lg shadow-sm shadow-neutral-300 mb-3">
       <View className="flex flex-col items-start justify-center p-3 w-full">
-        <View className="flex flex-row w-full">
+        <View className="flex flex-row gap-4">
           <Image
             source={{
               uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat:${destination_longitude},${destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_KEY}`,
             }}
             className="w-[80px] h-[90px]"
           />
-          <View className="flex flex-col mx-5 gap-y-5">
+          <View className="flex flex-col flex-1 space-y-4">
             <View className="flex flex-row items-center gap-x-2">
               <Image source={icons.to} className="w-5 h-5" />
-              <Text className="text-md font-JakartaMedium" numberOfLines={1}>
+              <Text className="text-[13px] font-JakartaMedium">
                 {origin_address}
               </Text>
             </View>
 
             <View className="flex flex-row items-center gap-x-2">
               <Image source={icons.point} className="w-5 h-5" />
-              <Text className="text-md font-JakartaMedium" numberOfLines={1}>
+              <Text className="text-[13px] font-JakartaMedium">
                 {destination_address}
               </Text>
             </View>

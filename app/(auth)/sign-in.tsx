@@ -77,7 +77,7 @@ const SignIn = () => {
             onPress={onSignInPress}
             classNames="mt-6"
           />
-          <OAuth />
+          {/* <OAuth /> */}
           <View className="flex-row space-x-2 justify-center mt-6">
             <Text>Dont have an account?</Text>
             <Link href={"/(auth)/sign-up"} className="text-primary-500">

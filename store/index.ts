@@ -1,10 +1,12 @@
 import { DriverStore, LocationStore, MarkerData } from "@/types/type";
+import { LocationGeocodedAddress } from "expo-location";
 import { create } from "zustand";
 
 export const useLocationStore = create<LocationStore>((set) => ({
   userAddress: null,
   userLongitude: null,
   userLatitude: null,
+  longUserAddress: null,
   destinationAddress: null,
   destinationLongitude: null,
   destinationLatitude: null,
@@ -21,6 +23,11 @@ export const useLocationStore = create<LocationStore>((set) => ({
       userAddress: address,
       userLongitude: longitude,
       userLatitude: latitude,
+    }));
+  },
+  setLongUserAddress: (address: LocationGeocodedAddress) => {
+    set(() => ({
+      longUserAddress: address,
     }));
   },
   setDestinationLocation: ({

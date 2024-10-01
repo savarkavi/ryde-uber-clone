@@ -4,11 +4,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { name, email, amount, userAddress } = body;
+  const { name, email, amount, userAddress, longUserAddress } = body;
 
-  console.log(userAddress);
-
-  if (!name || !email || !amount || !userAddress) {
+  if (!name || !email || !amount || !userAddress || !longUserAddress) {
     return new Response(
       JSON.stringify({ error: "Enter a valid field", status: 400 })
     );
@@ -39,7 +37,13 @@ export async function POST(request: Request) {
     description: "Test payments for uber-clone mobile app",
     shipping: {
       name,
-      address: userAddress,
+      address: {
+        line1: longUserAddress.formattedAddress,
+        postal_code: longUserAddress.postalCode,
+        city: longUserAddress.city,
+        state: longUserAddress.region,
+        country: longUserAddress.country,
+      },
     },
     automatic_payment_methods: {
       enabled: true,

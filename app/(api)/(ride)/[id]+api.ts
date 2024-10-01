@@ -6,7 +6,15 @@ export async function GET(request: Request, { id }: { id: string }) {
   }
 
   try {
-    const { data } = await supabase.from("rides").select().eq("id", id);
+    const { data } = await supabase
+      .from("rides")
+      .select(
+        `
+        *,
+        driver:driver_id (*)
+      `
+      )
+      .eq("user_id", id);
 
     return Response.json({
       message: "Ride fetched successfully",
